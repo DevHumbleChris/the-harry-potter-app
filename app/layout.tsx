@@ -1,22 +1,26 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Lexend } from 'next/font/google'
+import "./globals.css";
+import type { Metadata } from "next";
+import { Lexend } from "next/font/google";
+import { Provider } from "react-redux";
+import { store } from "./stores";
 
-const lexend = Lexend({ subsets: ['latin']})
+const lexend = Lexend({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Hogwarts Academy',
-  description: 'Hogwarts Academy',
-}
+  title: "Hogwarts Academy",
+  description: "Hogwarts Academy",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={lexend.className}>{children}</body>
+      <body className={lexend.className}>
+        <Provider store={store}>{children}</Provider>
+      </body>
     </html>
-  )
+  );
 }
