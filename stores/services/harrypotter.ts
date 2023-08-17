@@ -1,9 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-interface MovieName {
-    name: string
-}
+type MovieName = string 
 
 // Define a service using a base URL and expected endpoints
 export const potterMoviesAPI = createApi({

@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image";
+import { useGetHarryPotterMoviesQuery } from "@/stores/services/harrypotter"; 
 
 async function getData() {
   const options = {
@@ -28,7 +31,7 @@ async function getData() {
 }
 
 export default async function Home() {
-  const { error, data } = await getData()
-  console.log(data)
+  const { data, error, isLoading } = useGetHarryPotterMoviesQuery('harry potter')
+  console.log(data, error, isLoading)
   return <main>hello</main>;
 }

@@ -1,8 +1,7 @@
+import StoreProvider from "@/stores/StoreProvider";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
-import { Provider } from "react-redux";
-import { store } from "./stores";
 
 const lexend = Lexend({ subsets: ["latin"] });
 
@@ -17,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={lexend.className}>
-        <Provider store={store}>{children}</Provider>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={lexend.className}>{children}</body>
+      </html>
+    </StoreProvider>
   );
 }
