@@ -2,11 +2,13 @@ import { potterMoviesAPI } from './services/harrypotter'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import counterSlice from './counter'
+import moviesSlice from './movies'
 
 export const store = configureStore({
   reducer: {
     counter: counterSlice,
     [potterMoviesAPI.reducerPath]: potterMoviesAPI.reducer,
+    movies: moviesSlice
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
