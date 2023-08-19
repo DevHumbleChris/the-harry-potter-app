@@ -1,21 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface MoviesState {
-    movies: object[]
+  potterMovies: object[];
 }
 
-const initialState : MoviesState = {
-    movies: []
+interface ActionState { 
+    type: string,
+    payload: Array<Object>
 }
+
+const initialState: MoviesState = {
+  potterMovies: [],
+};
 
 export const moviesSlice = createSlice({
-    name: 'movies',
-    initialState,
-    reducers: {
-        getMovies: (state) => {
-            state.movies = [{ name: 'hello' }]
-        }
-    }
-})
+  name: "movies",
+  initialState,
+  reducers: {
+    getHarryPotterMovies: (state, { payload } : ActionState ): void => {
+        console.log(payload)
+      state.potterMovies = payload
+    },
+  },
+});
 
-export default moviesSlice.reducer
+export const { getHarryPotterMovies } = moviesSlice.actions;
+export default moviesSlice.reducer;

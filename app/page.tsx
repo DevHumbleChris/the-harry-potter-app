@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image";
-import { useGetHarryPotterMoviesQuery } from "@/stores/services/harrypotter"; 
+import { useAppSelector, useAppDispatch } from '../stores/hooks'
+import { getHarryPotterMovies } from "@/stores/movies";
 
 async function getData() {
   const options = {
@@ -31,7 +32,11 @@ async function getData() {
 }
 
 export default async function Home() {
-  const { data, error, isLoading } = useGetHarryPotterMoviesQuery('harry potter')
-  console.log(data, error, isLoading)
-  return <main>hello</main>;
+  const movies = useAppSelector(state => state.movies.potterMovies)
+  const dispatch = useAppDispatch()
+  const { data } = await getData()
+  if (data) {
+    dispatch(getHarryPotterMovies(data))
+  }
+  return <main></main>;
 }
