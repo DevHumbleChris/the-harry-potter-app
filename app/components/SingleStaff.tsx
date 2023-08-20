@@ -8,7 +8,7 @@ type Props = {
 
 export default function SingleStaff({ staff }: Props) {
   return (
-    <Link href={`/staffs/${staff.id}`} className="w-40 md:w-60 shrink-0 p-2">
+    <Link href={`/staffs/${staff?.id}`} className="w-40 md:w-60 shrink-0 p-2">
       <div className="transition duration-400 hover:scale-105 hover:z-10">
         <Image
           src={staff?.image || "/images/hogwarts-logo.png"}

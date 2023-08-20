@@ -40,6 +40,7 @@ export default function Students() {
   const [newLimitedStudents, setNewLimitedStudents] = useState<Characters[]>(
     []
   );
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   async function retrieveCharacters(): Promise<CharactersResponseState> {
     let { data, error } = await getHarryPotterCharacters();
@@ -56,6 +57,7 @@ export default function Students() {
           dispatch(setHarryPotterStudentsCharacters(data));
           let limitedStaffs = limitStudentsTo10(students);
           setNewLimitedStudents(limitedStaffs);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -71,17 +73,21 @@ export default function Students() {
     }
   }
   return (
-    <section className="p-8 bg-[#111111] text-white space-y-4">
+    <section className="p-8 space-y-4">
       <h1 className="text-xl">Students</h1>
-      <div className="relative flex gap-4 overflow-x-scroll">
-        {newLimitedStudents.map((student) => {
-          return <SingleStudent key={student.id} student={student} />;
-        })}
-        <Link href="/students" className="flex items-center shrink-0">
-          <p>View More</p>
-          <IcRoundChevronRight className="text-white w-6 h-auto" />
-        </Link>
-      </div>
+      {isLoading ? (
+        <div className="w-16 h-16 mt-40 mx-auto border-8 border-dashed rounded-full animate-spin border-white"></div>
+      ) : (
+        <div className="relative flex gap-4 overflow-x-scroll">
+          {newLimitedStudents.map((student) => {
+            return <SingleStudent key={student.id} student={student} />;
+          })}
+          <Link href="/students" className="flex items-center shrink-0">
+            <p>View More</p>
+            <IcRoundChevronRight className="text-white w-6 h-auto" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

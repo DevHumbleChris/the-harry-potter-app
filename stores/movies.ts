@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MoviesState, MoviesActionState, CharactersActionState } from "./types";
+import { MoviesState, MoviesActionState, CharactersActionState, CharacterSelected, KnowForActionState } from "./types";
 
 const initialState: MoviesState = {
   potterMovies: [],
   students: [],
   staffs: [],
+  selectedPerson: null,
+  selectedKnownForData: null
 };
 
 export const moviesSlice = createSlice({
@@ -26,6 +28,12 @@ export const moviesSlice = createSlice({
     ): void => {
       state.staffs = payload;
     },
+    setSelectedStaff: (state, { payload }: CharacterSelected): void => {
+      state.selectedPerson = payload
+    },
+    setSelectedKnownForData: (state, { payload }: KnowForActionState): void => {
+      state.selectedKnownForData = payload
+    }
   },
 });
 
@@ -33,5 +41,7 @@ export const {
   getHarryPotterMovies,
   setHarryPotterStudentsCharacters,
   setHarryPotterStaffsCharacters,
+  setSelectedStaff,
+  setSelectedKnownForData
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -47,7 +47,7 @@ export default function Banner() {
             </div>
             <div className="opacity-50 hidden md:block">
               {" "}
-              {bannerMovieDisplay?.vote_count} votes{" "}
+              {bannerMovieDisplay?.vote_count}
             </div>
           </div>
           <p className="mt-2 opacity-80 leading-relaxed overflow-hidden line-clamp-3 md:line-clamp-5 text-xs md:text-base">

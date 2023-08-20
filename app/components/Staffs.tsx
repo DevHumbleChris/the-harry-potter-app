@@ -38,6 +38,7 @@ export default function Staffs() {
   const staffs = useAppSelector((state) => state.movies.staffs);
   const [newLimitedStaffs, setNewLimitedStaffs] = useState<Characters[]>([]);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   async function retrieveCharacters(): Promise<CharactersResponseState> {
     let { data, error } = await getHarryPotterCharacters();
     return {
@@ -53,6 +54,7 @@ export default function Staffs() {
           dispatch(setHarryPotterStaffsCharacters(data));
           let limitedStaffs = limitStaffsTo10(staffs);
           setNewLimitedStaffs(limitedStaffs);
+          setIsLoading(false)
         }
       })
       .catch((error) => {
@@ -68,17 +70,21 @@ export default function Staffs() {
     }
   }
   return (
-    <section className="p-8 bg-[#111111] text-white space-y-4">
+    <section className="p-8 bg-[#111111] space-y-4">
       <h1 className="text-xl">Staffs</h1>
-      <div className="flex gap-4 overflow-x-scroll">
-        {newLimitedStaffs.map((staff) => {
-          return <SingleStaff key={staff.id} staff={staff} />;
-        })}
-        <Link href="/staffs" className="flex items-center shrink-0">
-          <p>View More</p>
-          <IcRoundChevronRight className="text-white w-6 h-auto" />
-        </Link>
-      </div>
+      {isLoading ? (
+        <div className="w-16 h-16 mt-40 mx-auto border-8 border-dashed rounded-full animate-spin border-white"></div>
+      ) : (
+        <div className="flex gap-4 overflow-x-scroll">
+          {newLimitedStaffs.map((staff) => {
+            return <SingleStaff key={staff.id} staff={staff} />;
+          })}
+          <Link href="/staffs" className="flex items-center shrink-0">
+            <p>View More</p>
+            <IcRoundChevronRight className="text-white w-6 h-auto" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

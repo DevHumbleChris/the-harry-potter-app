@@ -47,11 +47,23 @@ export interface MoviesState {
   potterMovies: Movie[];
   students: Characters[];
   staffs: Characters[];
+  selectedPerson: null | Characters;
+  selectedKnownForData: null | KnownFor[]
 }
 
 export interface CharactersActionState {
   type: string;
   payload: Characters[];
+}
+
+export interface CharacterSelected {
+  type: string;
+  payload: Characters;
+}
+
+export interface KnowForActionState {
+  type: string;
+  payload: KnownFor[];
 }
 
 export interface MoviesActionState {
@@ -67,4 +79,32 @@ export interface ResponseState {
 export interface CharactersResponseState {
   error: string | Object | null;
   data: null | Characters[];
+}
+
+export interface SingleCharacterResponse {
+  error: string | Object | null;
+  data: null | Characters;
+}
+
+export interface KnownForResponse {
+  error: string | Object | null;
+  data: null | KnownFor[];
+}
+
+export interface KnownFor {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
