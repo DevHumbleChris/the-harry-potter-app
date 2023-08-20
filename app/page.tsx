@@ -1,42 +1,75 @@
-"use client"
-
+"use client";
 import Image from "next/image";
-import { useAppSelector, useAppDispatch } from '../stores/hooks'
+import { useEffect } from "react";
 import { getHarryPotterMovies } from "@/stores/movies";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { Movie } from "@/stores/types";
 
 async function getData() {
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${process.env.API_KEY_ACCESSTOKEN}`
-    }
+      accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY_ACCESSTOKEN}`,
+    },
   };
 
-  const resp = await fetch(`${process.env.API_BASEURL}?query=harry%20potter&include_adult=false&language=en-US&page=1`, options)
-  
+  const resp = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASEURL}?query=harry%20potter&include_adult=false&language=en-US&page=1`,
+    options
+  );
+
   if (!resp.ok) {
-    console.log(resp)
     return {
-      error: 'Failed To Fetch Data',
-      data: null
-    }
+      error: "Failed To Fetch Data",
+      data: null,
+    };
   }
 
-  const { results } = await resp.json()
-
+  const { results } = await resp.json();
   return {
     error: null,
-    data: results
-  }
+    data: results,
+  };
 }
 
-export default async function Home() {
-  const movies = useAppSelector(state => state.movies.potterMovies)
-  const dispatch = useAppDispatch()
-  const { data } = await getData()
-  if (data) {
-    dispatch(getHarryPotterMovies(data))
+interface ResponseState {
+  error: string | Object | null;
+  data: null | Movie[];
+}
+
+export default function Home() {
+  const movies = useAppSelector((state) => state.movies.potterMovies);
+  const dispatch = useAppDispatch();
+  async function retrievePotterMovies(): Promise<ResponseState> {
+    let { data, error } = await getData();
+    return {
+      data,
+      error,
+    };
   }
-  return <main></main>;
+  useEffect(() => {
+    retrievePotterMovies()
+      .then(resp => {
+        const data: Movie[] | null = resp.data
+        if (data) {
+          dispatch(getHarryPotterMovies(data))
+        }
+      })
+      .catch((error) => {
+        console.log(error.message)
+      });
+  }, [dispatch])
+
+  return <main>
+    {
+      movies.map(movie => {
+        return (
+          <div key={movie.id}>
+            { movie.id }
+          </div>
+        )
+      })
+    }
+  </main>;
 }

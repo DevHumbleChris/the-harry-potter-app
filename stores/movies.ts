@@ -1,13 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface MoviesState {
-  potterMovies: object[];
-}
-
-interface ActionState { 
-    type: string,
-    payload: Array<Object>
-}
+import { MoviesState, ActionState } from './types'
 
 const initialState: MoviesState = {
   potterMovies: [],
@@ -18,7 +10,6 @@ export const moviesSlice = createSlice({
   initialState,
   reducers: {
     getHarryPotterMovies: (state, { payload } : ActionState ): void => {
-        console.log(payload)
       state.potterMovies = payload
     },
   },
