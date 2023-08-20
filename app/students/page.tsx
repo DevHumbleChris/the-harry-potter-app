@@ -70,7 +70,7 @@ export default function StudentsPage() {
         </Link>
         <h1 className="text-xl font-bold">Hogwarts Academy: Students</h1>
       </div>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {students.map((student) => {
           return <SingleStudent key={student.id} student={student} />;
         })}
