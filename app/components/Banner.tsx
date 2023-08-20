@@ -35,7 +35,7 @@ export default function Banner() {
           onClick={previousBannerMovieDisplay}
         />
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 items-center py-5 px-12 sm:p-12">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 items-center py-5 px-12 sm:p-12">
         <div className="text-white">
           <h1 className="mt-2 text-3xl lg:text-5xl line-clamp-3 z-30">
             {bannerMovieDisplay?.title}
