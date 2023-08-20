@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/stores/hooks";
 import { setHarryPotterStudentsCharacters } from "@/stores/movies";
 import { Characters, CharactersResponseState } from "@/stores/types";
 import Image from "next/image";
 import Link from "next/link";
 import SingleStudent from "./SingleStudent";
+import { IcRoundChevronRight } from "../svgs/ChevronRight";
 
 async function getHarryPotterCharacters() {
   const options = {
@@ -36,6 +37,9 @@ async function getHarryPotterCharacters() {
 
 export default function Students() {
   const students = useAppSelector((state) => state.movies.students);
+  const [newLimitedStudents, setNewLimitedStudents] = useState<Characters[]>(
+    []
+  );
   const dispatch = useAppDispatch();
   async function retrieveCharacters(): Promise<CharactersResponseState> {
     let { data, error } = await getHarryPotterCharacters();
@@ -50,17 +54,33 @@ export default function Students() {
         if (resp.data) {
           const data: Characters[] = resp.data;
           dispatch(setHarryPotterStudentsCharacters(data));
+          let limitedStaffs = limitStudentsTo10(students);
+          setNewLimitedStudents(limitedStaffs);
         }
       })
       .catch((error) => {
         console.log(error.message);
       });
-  }, [dispatch]);
+  }, [dispatch, students]);
+
+  function limitStudentsTo10(studentsData: Characters[]): Characters[] {
+    if (studentsData.length <= 10) {
+      return studentsData;
+    } else {
+      return studentsData.slice(0, 10);
+    }
+  }
   return (
     <section className="p-8 bg-[#111111] text-white space-y-4">
       <h1 className="text-xl">Students</h1>
-      <div className="flex gap-4">
-        <SingleStudent />
+      <div className="relative flex gap-4 overflow-x-scroll">
+        {newLimitedStudents.map((student) => {
+          return <SingleStudent key={student.id} student={student} />;
+        })}
+        <Link href="/students" className="flex items-center shrink-0">
+          <p>View More</p>
+          <IcRoundChevronRight className="text-white w-6 h-auto" />
+        </Link>
       </div>
     </section>
   );

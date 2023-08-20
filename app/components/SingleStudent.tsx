@@ -1,21 +1,26 @@
+import { Characters } from "@/stores/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SingleStudent() {
+type Props = {
+  student: Characters;
+};
+
+export default function SingleStudent({ student }: Props) {
   return (
-    <Link href="#" className="w-40 md:w-60 shrink-0">
-      <div className="transition duration-400 hover:scale-105 hover:z-10">
+    <Link href={`/students/${student.id}`} className="w-40 md:w-60 shrink-0 p-2">
+      <div className="transition duration-400 hover:scale-105 hover:z-10 shrink-0">
         <Image
-          src="https://ik.imagekit.io/hpapi/harry.jpg"
+          src={student?.image || "/images/hogwarts-logo.png"}
           width={400}
           height={600}
           alt="try"
-          className="w-full object-cover h-full border-4 rounded-xl"
+          className="w-full object-cover h-80 border-4 rounded-xl"
         />
       </div>
-      <div className="p-2 text-xs">
-        <p className="text-lg text-[#00ad99] font-bold">Harry Potter</p>
-        <p>D.O.B 31-07-1980</p>
+      <div className="p-2 text-xs shrink-0">
+        <p className="text-lg text-[#00ad99] font-bold"> {student?.name} </p>
+        {student?.dateOfBirth?.length > 0 && <p>D.O.B {student?.dateOfBirth} </p>}
       </div>
     </Link>
   );

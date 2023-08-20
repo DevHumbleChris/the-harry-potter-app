@@ -8,7 +8,6 @@ export function IcRoundChevronLeft(props: SVGProps<SVGSVGElement>) {
       height="1em"
       viewBox="0 0 24 24"
       {...props}
-      className="text-white absolute top-1/2 w-12 h-auto"
     >
       <path
         fill="currentColor"

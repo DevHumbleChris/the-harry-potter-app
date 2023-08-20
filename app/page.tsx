@@ -51,7 +51,7 @@ export default function Home() {
     retrievePotterMovies()
       .then((resp) => {
         if (resp.data) {
-          const data: Movie[] = resp.data.filter(movieData => movieData.backdrop_path !== null);
+          const data: Movie[] = resp.data.filter(movieData => movieData.backdrop_path !== null && movieData.overview);
           dispatch(getHarryPotterMovies(data));
         }
       })
