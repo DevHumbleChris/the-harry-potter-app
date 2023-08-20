@@ -15,11 +15,45 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface MoviesState {
-  potterMovies: Movie[];
+interface Wand {
+  wood: string;
+  core: string;
+  length: number;
+}
+export interface Characters {
+  id: string;
+  name: string;
+  alternate_names: string[];
+  species: string;
+  gender: string;
+  house: string;
+  dateOfBirth: string;
+  yearOfBirth: number;
+  wizard: boolean;
+  ancestry: string;
+  eyeColour: string;
+  hairColour: string;
+  wand: Wand;
+  patronus: string;
+  hogwartsStudent: boolean;
+  hogwartsStaff: boolean;
+  actor: string;
+  alternate_actors: string[];
+  alive: boolean;
+  image: string;
 }
 
-export interface ActionState {
+export interface MoviesState {
+  potterMovies: Movie[];
+  characters: Characters[];
+}
+
+export interface CharactersActionState {
+  type: string;
+  payload: Characters[];
+}
+
+export interface MoviesActionState {
   type: string;
   payload: Movie[];
 }
@@ -27,4 +61,9 @@ export interface ActionState {
 export interface ResponseState {
   error: string | Object | null;
   data: null | Movie[];
+}
+
+export interface CharactersResponseState {
+  error: string | Object | null;
+  data: null | Characters[];
 }

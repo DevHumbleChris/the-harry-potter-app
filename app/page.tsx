@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { getHarryPotterMovies } from "@/stores/movies";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { Movie, ResponseState } from "@/stores/types";
+import Banner from "./components/Banner";
+import Characters from "./components/Characters";
 
 async function getData() {
   const options = {
@@ -35,7 +37,7 @@ async function getData() {
 
 export default function Home() {
   const movies = useAppSelector((state) => state.movies.potterMovies);
-  const imgURL = process.env.NEXT_PUBLIC_IMG_URL
+  const imgURL = process.env.NEXT_PUBLIC_IMG_URL;
   const dispatch = useAppDispatch();
   async function retrievePotterMovies(): Promise<ResponseState> {
     let { data, error } = await getData();
@@ -46,26 +48,21 @@ export default function Home() {
   }
   useEffect(() => {
     retrievePotterMovies()
-      .then(resp => {
-        const data: Movie[] | null = resp.data
-        if (data) {
-          dispatch(getHarryPotterMovies(data))
+      .then((resp) => {
+        if (resp.data) {
+          const data: Movie[] = resp.data.filter(movieData => movieData.backdrop_path !== null);
+          dispatch(getHarryPotterMovies(data));
         }
       })
       .catch((error) => {
-        console.log(error.message)
+        console.log(error.message);
       });
-  }, [dispatch])
+  }, [dispatch]);
 
-  return <main>
-    {
-      movies.map(movie => {
-        return (
-          <div key={movie.id}>
-            { movie.id }
-          </div>
-        )
-      })
-    }
-  </main>;
+  return (
+    <main>
+      <Banner />
+      <Characters />
+    </main>
+  );
 }
