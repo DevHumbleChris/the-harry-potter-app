@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { getHarryPotterMovies } from "@/stores/movies";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { Movie } from "@/stores/types";
+import { Movie, ResponseState } from "@/stores/types";
 
 async function getData() {
   const options = {
@@ -33,13 +33,9 @@ async function getData() {
   };
 }
 
-interface ResponseState {
-  error: string | Object | null;
-  data: null | Movie[];
-}
-
 export default function Home() {
   const movies = useAppSelector((state) => state.movies.potterMovies);
+  const imgURL = process.env.NEXT_PUBLIC_IMG_URL
   const dispatch = useAppDispatch();
   async function retrievePotterMovies(): Promise<ResponseState> {
     let { data, error } = await getData();

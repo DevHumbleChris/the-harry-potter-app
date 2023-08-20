@@ -23,3 +23,8 @@ export interface ActionState {
   type: string;
   payload: Movie[];
 }
+
+export interface ResponseState {
+  error: string | Object | null;
+  data: null | Movie[];
+}
