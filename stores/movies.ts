@@ -3,7 +3,8 @@ import { MoviesState, MoviesActionState, CharactersActionState } from "./types";
 
 const initialState: MoviesState = {
   potterMovies: [],
-  characters: [],
+  students: [],
+  staffs: [],
 };
 
 export const moviesSlice = createSlice({
@@ -13,15 +14,24 @@ export const moviesSlice = createSlice({
     getHarryPotterMovies: (state, { payload }: MoviesActionState): void => {
       state.potterMovies = payload;
     },
-    setHarryPotterCharacters: (
+    setHarryPotterStudentsCharacters: (
       state,
       { payload }: CharactersActionState
     ): void => {
-      state.characters = payload
+      state.students = payload;
+    },
+    setHarryPotterStaffsCharacters: (
+      state,
+      { payload }: CharactersActionState
+    ): void => {
+      state.staffs = payload;
     },
   },
 });
 
-export const { getHarryPotterMovies, setHarryPotterCharacters } =
-  moviesSlice.actions;
+export const {
+  getHarryPotterMovies,
+  setHarryPotterStudentsCharacters,
+  setHarryPotterStaffsCharacters,
+} = moviesSlice.actions;
 export default moviesSlice.reducer;

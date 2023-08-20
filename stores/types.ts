@@ -45,7 +45,8 @@ export interface Characters {
 
 export interface MoviesState {
   potterMovies: Movie[];
-  characters: Characters[];
+  students: Characters[];
+  staffs: Characters[];
 }
 
 export interface CharactersActionState {

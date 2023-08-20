@@ -1,8 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/stores/hooks";
-import { setHarryPotterCharacters } from "@/stores/movies";
+import { setHarryPotterStudentsCharacters } from "@/stores/movies";
 import { Characters, CharactersResponseState } from "@/stores/types";
+import Image from "next/image";
+import Link from "next/link";
+import SingleStudent from "./SingleStudent";
 
 async function getHarryPotterCharacters() {
   const options = {
@@ -13,7 +16,7 @@ async function getHarryPotterCharacters() {
   };
 
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_HP_API_BASEURL}/characters`,
+    `${process.env.NEXT_PUBLIC_HP_API_BASEURL}/characters/students`,
     options
   );
 
@@ -31,21 +34,22 @@ async function getHarryPotterCharacters() {
   };
 }
 
-export default function Characters() {
-  const dispatch = useAppDispatch()
+export default function Students() {
+  const students = useAppSelector((state) => state.movies.students);
+  const dispatch = useAppDispatch();
   async function retrieveCharacters(): Promise<CharactersResponseState> {
     let { data, error } = await getHarryPotterCharacters();
     return {
       data,
-      error
-    }
+      error,
+    };
   }
   useEffect(() => {
     retrieveCharacters()
       .then((resp) => {
-        if(resp.data) {
-          const data : Characters[] = resp.data
-          dispatch(setHarryPotterCharacters(data))
+        if (resp.data) {
+          const data: Characters[] = resp.data;
+          dispatch(setHarryPotterStudentsCharacters(data));
         }
       })
       .catch((error) => {
@@ -53,8 +57,11 @@ export default function Characters() {
       });
   }, [dispatch]);
   return (
-    <section className="p-8 bg-[#111111] text-white">
-      <h1 className="text-xl">Characters</h1>
+    <section className="p-8 bg-[#111111] text-white space-y-4">
+      <h1 className="text-xl">Students</h1>
+      <div className="flex gap-4">
+        <SingleStudent />
+      </div>
     </section>
   );
 }

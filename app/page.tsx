@@ -5,7 +5,8 @@ import { getHarryPotterMovies } from "@/stores/movies";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { Movie, ResponseState } from "@/stores/types";
 import Banner from "./components/Banner";
-import Characters from "./components/Characters";
+import Students from "./components/Students";
+import Staffs from "./components/Staffs"
 
 async function getData() {
   const options = {
@@ -62,7 +63,8 @@ export default function Home() {
   return (
     <main>
       <Banner />
-      <Characters />
+      <Students />
+      <Staffs />
     </main>
   );
 }
