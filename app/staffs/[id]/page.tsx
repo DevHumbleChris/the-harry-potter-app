@@ -1,6 +1,6 @@
 "use client";
 
-import getPersonInfo from "@/app/utils/person";
+import getPersonInfo from "../../utils/person";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { setSelectedKnownForData, setSelectedStaff } from "@/stores/movies";
 import {
