@@ -135,13 +135,13 @@ export default function SpecificStaffPage({ params: { id } }: PropsInterface) {
       {isLoading ? (
         <div className="w-16 h-16 mt-40 mx-auto border-8 border-dashed rounded-full animate-spin border-white"></div>
       ) : (
-        <div className="grid grid-cols-3 gap-10 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 w-full">
           <Image
             src={staff?.image || "/images/hogwarts-logo.png"}
             width={400}
             height={600}
             alt="try"
-            className="w-full object-cover h-[35rem] border-4 rounded-xl col-span-1"
+            className="w-full object-cover h-[25rem] sm:h-[35rem] border-4 rounded-xl sm:col-span-1"
           />
           <div className="col-span-2 space-y-6">
             <h1 className="text-2xl">{staff?.actor}</h1>
