@@ -6,7 +6,8 @@ const initialState: MoviesState = {
   students: [],
   staffs: [],
   selectedPerson: null,
-  selectedKnownForData: null
+  selectedKnownForData: null,
+  allCharacters: []
 };
 
 export const moviesSlice = createSlice({
@@ -33,6 +34,9 @@ export const moviesSlice = createSlice({
     },
     setSelectedKnownForData: (state, { payload }: KnowForActionState): void => {
       state.selectedKnownForData = payload
+    },
+    setAllCharacters: (state, { payload }: CharactersActionState): void => {
+      state.allCharacters = payload
     }
   },
 });
@@ -42,6 +46,7 @@ export const {
   setHarryPotterStudentsCharacters,
   setHarryPotterStaffsCharacters,
   setSelectedStaff,
-  setSelectedKnownForData
+  setSelectedKnownForData,
+  setAllCharacters
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

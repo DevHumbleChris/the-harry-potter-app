@@ -5,6 +5,8 @@ import { IcRoundChevronRight } from "../svgs/ChevronRight";
 import { useAppSelector } from "@/stores/hooks";
 import { useEffect, useState } from "react";
 import { Movie } from "@/stores/types";
+import { PhMagnifyingGlassFill } from "../svgs/Search";
+import Link from "next/link";
 export default function Banner() {
   const imgURL = process.env.NEXT_PUBLIC_IMG_URL;
   const movies = useAppSelector((state) => state.movies.potterMovies);
@@ -29,6 +31,10 @@ export default function Banner() {
   }
   return (
     <div className="relative aspect-ratio-3/2 lg:aspect-ratio-25/9 bg-black">
+      <Link href="/search" className="absolute top-6 right-6 z-20 bg-[#027aae] p-1 hover:px-3 hover:py-2 rounded-full flex items-center space-x-1 group">
+        <PhMagnifyingGlassFill className="w-8 h-auto" />
+        <p className="group-hover:block hidden">Search</p>
+      </Link>
       {currentMovieDisplayIndex > 0 && (
         <IcRoundChevronLeft
           className="text-white absolute top-1/2 w-12 h-auto cursor-pointer"

@@ -49,6 +49,7 @@ export interface MoviesState {
   staffs: Characters[];
   selectedPerson: null | Characters;
   selectedKnownForData: null | KnownFor[]
+  allCharacters: Characters[]
 }
 
 export interface CharactersActionState {
